@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+}
+
+html
+{
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+
+/*Nav Part*/
+
+#myNav {
+margin: 20px 300px;
+padding-bottom: 100px;
+}
+
+#myNav h1 {
+    float: left;
+    text-align: left;
+    font-size: 80px;
+}
+
+#myNav ul {
+    float: right;
+    text-align: right;
+    font-size: 40px;
+    margin-top: 25px;
+}
+
+#myNav ul li {
+   display: inline-block;
+}
+
+#myNav ul li a {
+    margin: 0px 50px;
+text-decoration: none; 
+}
+
+/*form & p*/
+#inputForm
+{
+    font-size: 30px;
+    text-align: center;
+    clear: both;
+    margin: 0px 300px;
+    padding-bottom: 100px;
+}
+
+#inputForm input, #submitBtn {
+    border-radius: 5px;
+    font-size: 20px;
+}
+#inputForm #submitBtn:hover {
+color: red;
+}
+
+
+/* para */
+div p{
+    margin: 0 300px;
+    clear: both;
+    font-size: 35px;
+}
+
+/*Images Part*/
+#divImages {
+    clear: both;
+    /* background-image: linear-gradient(to bottom right, red, yellow); */
+    margin: 50px 290px;
+    /* border: 1px solid black; */
+}
+
+#divImages img {
+margin: 20px 118px;
+height: 300px;
+width: 200px;
+border: 1px solid black;
+}
+
+/* result */ 
+#result {
+    text-align: center;
+    margin: 30px 300px;
+    clear: both;
+}
+
+#resultBtn {
+    border-radius: 10px;
+    font-size: 45px;
+    margin: 50px 300px;
+}
+
+#resultBtn:hover{
+    border-radius: 10px;
+    font-size: 45.25px;
+    color: red;
+} 
+
+#result ul {
+    text-align: left;
+    font-size: 25px;
+}
+#result ul li {
+line-height: 1.2;
+}
