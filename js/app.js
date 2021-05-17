@@ -71,12 +71,6 @@ function renderThreeImages() {
     centerImageIndex = generateRandomIndex();
     rightImageIndex = generateRandomIndex();
 
-    // dont display same images in the next round 
-    displayedImages = []; // reset my global array
-    displayedImages = [leftImageIndex, centerImageIndex, rightImageIndex]; // update the values again
-    console.log(displayedImages);
-
-
     while
         (
         leftImageIndex === centerImageIndex
@@ -94,6 +88,10 @@ function renderThreeImages() {
     }
 
 
+    // dont display same images in the next round 
+    displayedImages = []; // reset my global array
+    displayedImages = [leftImageIndex, centerImageIndex, rightImageIndex]; // update the values again
+    console.log(displayedImages);
 
     //seen++
     myImages[leftImageIndex].seen++;
