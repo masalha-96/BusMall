@@ -2,6 +2,11 @@
 
 // global array to contain my all objects
 let myImages = [];
+// global array to contain my objects  names, views, votes
+let myImagesNames = [];
+let myImagesViews = [];
+let myImagesVotes = [];
+let displayedImages = [];
 
 // global vars
 let leftImageIndex;
@@ -46,6 +51,7 @@ function Image(name, soucre) {
     this.votes = 0;
     this.seen = 0;
     myImages.push(this);
+    myImagesNames.push(this.name);
 }
 
 /* ====== RandomIndex Function ================================================================================================================================ */
@@ -60,14 +66,33 @@ function generateRandomIndex() {
 /* ====== renderThreeImages Function =========================================================================================================================== */
 
 function renderThreeImages() {
+
     leftImageIndex = generateRandomIndex();
     centerImageIndex = generateRandomIndex();
     rightImageIndex = generateRandomIndex();
 
-    while (leftImageIndex === centerImageIndex || leftImageIndex === rightImageIndex || centerImageIndex === rightImageIndex) {
+    // dont display same images in the next round 
+    displayedImages = []; // reset my global array
+    displayedImages = [leftImageIndex, centerImageIndex, rightImageIndex]; // update the values again
+    console.log(displayedImages);
+
+
+    while
+        (
+        leftImageIndex === centerImageIndex
+        || leftImageIndex === rightImageIndex
+        || centerImageIndex === rightImageIndex
+        // dont display twice in-series checker
+        || displayedImages.includes(leftImageIndex)
+        || displayedImages.includes(centerImageIndex)
+        || displayedImages.includes(rightImageIndex)
+
+    ) {
         leftImageIndex = generateRandomIndex();
+        centerImageIndex = generateRandomIndex();
         rightImageIndex = generateRandomIndex();
     }
+
 
 
     //seen++
@@ -102,7 +127,7 @@ function userClick(event) {
 
     userAttemptsCounter++;
 
-    if (userAttemptsCounter < maxAttempts) {
+    if (userAttemptsCounter <= maxAttempts) {
 
 
         if (event.target.id === 'leftImage') {
@@ -116,23 +141,34 @@ function userClick(event) {
             myImages[centerImageIndex].votes++;
         }
 
+
         renderThreeImages();
     }
 
     else {
-        leftImageElement.removeEventListener('click', UserClick);
-        centerImageElement.removeEventListener('click', UserClick);
-        rightImageElement.removeEventListener('click', UserClick);
+
+        leftImageElement.removeEventListener('click', userClick);
+        centerImageElement.removeEventListener('click', userClick);
+        rightImageElement.removeEventListener('click', userClick);
+
+        for (let i = 0; i < myImages.length; i++) {
+            myImagesVotes.push(myImages[i].votes);
+            myImagesViews.push(myImages[i].seen);
+        }
+
     }
+
+
+
 }
 
 
 /* ====== Add EventListeners =================================================================================================================================== */
 let resultBtn = document.getElementById('resultBtn');
-resultBtn.addEventListener('click',showResult);
+resultBtn.addEventListener('click',/*showResult*/ chartResult);
 
 /* ====== Result Function ==================================================================================================================================== */
-
+// Show Result as a List
 function showResult() {
     let result = document.getElementById('result');
     let ul = document.createElement("ul");
@@ -144,6 +180,45 @@ function showResult() {
         ul.appendChild(li);
         li.textContent = `${myImages[i].name} had ${myImages[i].votes} votes, and was seen ${myImages[i].seen} times.`
     }
+}
+
+
+
+/* ====== ChartResult Function ================================================================================================================================ */
+// Show Result as a Chart
+function chartResult() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: myImagesNames,
+            datasets: [{
+                label: '# of Votes',
+                data: myImagesVotes,
+                backgroundColor: [
+                    'red'
+                ],
+                borderColor: [
+                    'black'
+                ],
+                borderWidth: 1
+            }, {
+                label: '# of Views',
+                backgroundColor: 'blue',
+                borderColor: 'black',
+                data: myImagesViews
+            }]
+        },
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
 }
 
 
@@ -179,6 +254,9 @@ new Image('wine-glass', 'images/wine-glass.jpg');
 
 renderThreeImages();
 
+console.log('names', myImagesNames);
+console.log('votes', myImagesVotes);
+console.log('views', myImagesViews);
 
 // console.log('========');
 // console.log(myImages);
