@@ -63,6 +63,7 @@ function setItems() {
     // let votesData = JSON.stringify(myImagesVotes);
     // let viewsData = JSON.stringify(myImagesViews);
 
+    // save my data into localStorage 
     let data = JSON.stringify(myImages);
     localStorage.setItem('data', data);
 
@@ -76,8 +77,6 @@ function setItems() {
 }
 
 // 2. get function
-let normalVotes;
-let normalViews;
 
 function getStoredItems() {
 
@@ -248,6 +247,8 @@ function userClick(event) {
 /* ====== Add EventListeners =================================================================================================================================== */
 let resultBtn = document.getElementById('resultBtn');
 resultBtn.addEventListener('click',/*showResult*/ chartResult);
+resultBtn.addEventListener('click',showResult);
+
 
 /* ====== Result Function ==================================================================================================================================== */
 // Show Result as a List
