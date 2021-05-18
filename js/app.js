@@ -52,6 +52,87 @@ function Image(name, soucre) {
     this.seen = 0;
     myImages.push(this);
     myImagesNames.push(this.name);
+    //setItems();
+}
+
+/* ====== get & set functions ================================================================================================================================= */
+
+// 1. set function
+function setItems() {
+    // save my data into localStorage 
+    // let votesData = JSON.stringify(myImagesVotes);
+    // let viewsData = JSON.stringify(myImagesViews);
+
+    // save my data into localStorage 
+    let data = JSON.stringify(myImages);
+    localStorage.setItem('data', data);
+
+    // console.log(' votes data ',votesData);
+    // console.log(' views data ',viewsData);
+
+    // localStorage.setItem('Votes', votesData);
+    // localStorage.setItem('Views', viewsData);
+
+ 
+}
+
+// 2. get function
+
+function getStoredItems() {
+
+
+    let stringData = localStorage.getItem('data');
+    let normalData = JSON.parse(stringData);
+
+    if ( normalData !== null )
+    {
+        myImages = normalData;
+    }
+
+    // let stringVotes = localStorage.getItem('Votes');
+    // normalVotes = JSON.parse(stringVotes);
+    // let stringViews = localStorage.getItem('Views');
+    // normalViews = JSON.parse(stringViews);
+    // console.log('strings arrays');
+    // console.log(stringViews);
+    // console.log(stringVotes);
+    // console.log('normal arrays');
+    // console.log(normalViews);
+    // console.log(normalVotes);
+
+
+
+
+    // if (normalVotes !== null && normalViews !== null) {
+
+    //     myImagesViews = normalViews;
+    //     myImagesVotes = normalVotes;
+
+        // not working -- (1)
+        // myImagesVotes.length = 0;
+        // myImagesViews.length = 0;
+        // for (let i = 0; i < myImagesVotes.length; i++) {
+        //     myImagesVotes.push(normalVotes[i]);
+        //     myImagesViews.push(normalViews[i]);
+        // }
+
+        // not working -- (2)
+        // for (let i = 0; i < myImagesVotes.length; i++) {
+        //   myImagesVotes[i]+=normalVotes[i];
+        //   myImagesViews[i]+=normalViews[i];  
+        // }
+
+        // not working -- (3)
+        // for (let i = 0; i < myImagesVotes.length; i++) {
+        //   myImagesVotes[i]=normalVotes[i];
+        //   myImagesViews[i]=normalViews[i];  
+        // }
+
+    // }
+
+
+
+
 }
 
 /* ====== RandomIndex Function ================================================================================================================================ */
@@ -60,6 +141,8 @@ function Image(name, soucre) {
 function generateRandomIndex() {
     return Math.floor(Math.random() * myImages.length);
 }
+
+
 
 
 
@@ -91,7 +174,7 @@ function renderThreeImages() {
     // dont display same images in the next round 
     displayedImages = []; // reset my global array
     displayedImages = [leftImageIndex, centerImageIndex, rightImageIndex]; // update the values again
-    console.log(displayedImages);
+    // console.log(displayedImages);
 
     //seen++
     myImages[leftImageIndex].seen++;
@@ -155,8 +238,8 @@ function userClick(event) {
         }
 
     }
-
-
+    // save my data into local storage 
+    setItems();
 
 }
 
@@ -164,6 +247,8 @@ function userClick(event) {
 /* ====== Add EventListeners =================================================================================================================================== */
 let resultBtn = document.getElementById('resultBtn');
 resultBtn.addEventListener('click',/*showResult*/ chartResult);
+resultBtn.addEventListener('click',showResult);
+
 
 /* ====== Result Function ==================================================================================================================================== */
 // Show Result as a List
@@ -258,3 +343,8 @@ console.log('views', myImagesViews);
 
 // console.log('========');
 // console.log(myImages);
+
+getStoredItems();
+
+// console.log('last-line views ' + myImagesViews);
+// console.log('last-line votes ' + myImagesVotes);
